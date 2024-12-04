@@ -32,3 +32,11 @@ body{
     grid-template: repeat(30, 1fr) / repeat(30, 1fr);
     background-color: rgb(42, 56, 18);
 }
+
+.game-board .food{
+    background-color: gold;
+}
+
+.game-board .snake-head{
+    background-color: lightskyblue;
+}
