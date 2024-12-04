@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"/>
     <link rel="stylesheet" href="styles.css">
     <title>Snake</title>
 </head>
+
 <body>
     <section class="main-container">
         <div class="game-info">
-            <span class="score">Score:</span>
-            <span class="high-score">High Score:</span>
+            <span class="score">Score: 0</span>
+            <span class="high-score">High Score: 0</span>
         </div>
         <div class="game-board"></div>
+        <div class="controls">
+            <i data-key="ArrowLeft" class="fa-regular fa-circle-left"></i>
+            <i data-key="ArrowUp" class="fa-regular fa-circle-up"></i>
+            <i data-key="ArrowDown" class="fa-regular fa-circle-down"></i>
+            <i data-key="ArrowRight" class="fa-regular fa-circle-right"></i>
+        </div>
     </section>
 
     <script src="script.js" defer></script>
 </body>
+
 </html>

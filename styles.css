@@ -40,3 +40,35 @@ body{
 .game-board .snake-head{
     background-color: lightskyblue;
 }
+
+.controls{
+    display: none;
+    justify-content: space-between;
+}
+
+.controls i{
+    color: lightskyblue;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1.3rem;
+    width: calc(100% / 4);
+    padding: 25px 0;
+}
+
+@media screen and (max-width: 800px) {
+    .main-container{
+        width: 90vmin;
+        height: 115vmin;
+    }
+    .game-info{
+        padding: 15px 27px;
+        font-size: 1rem;
+    }
+    .controls{
+        display: flex;
+    }
+    .controls i{
+        padding: 15px 0;
+        font-size: 1rem;
+    }
+}
