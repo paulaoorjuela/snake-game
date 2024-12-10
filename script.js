@@ -13,7 +13,9 @@ let snakeX = 5, snakeY = 10
 let snakeBody = []
 let velocityX = 0, velocityY = 0
 let setIntervalId
-
+let gameSpeed = 10; // Initial speed
+let obstacles = [];
+let obstacleThreshold = 5; // Start showing obstacles after this score
 
 const changeFoodPosition = () => {
     foodX = Math.floor(Math.random() * 30) + 1
@@ -42,6 +44,26 @@ const changeDirection = (event) => {
     }
 }
 
+const updateGameSpeed = () => {
+    clearInterval(setIntervalId);
+    gameSpeed = Math.max(10, 125 - score * 5); // Decrease interval as score increases, min speed = 10ms
+    setIntervalId = setInterval(drawGame, gameSpeed);
+};
+
+const addObstacles = () => {
+    const obstacleX = Math.floor(Math.random() * 30) + 1;
+    const obstacleY = Math.floor(Math.random() * 30) + 1;
+    obstacles.push([obstacleX, obstacleY]);
+};
+
+const getDirectionClass = (velocityX, velocityY) => {
+    if (velocityX === 1) return "right";
+    if (velocityX === -1) return "left";
+    if (velocityY === 1) return "down";
+    if (velocityY === -1) return "up";
+    return ""; // Default (no movement)
+};
+
 controls.forEach(key => {
     key.addEventListener("click", () => changeDirection({key: key.dataset.key}))
 })
@@ -53,6 +75,8 @@ const drawGame = () => {
         changeFoodPosition()
         snakeBody.push([foodX, foodY])
         score ++
+        if (score % obstacleThreshold === 0) addObstacles(); // Add obstacles at intervals
+        updateGameSpeed(); // Adjust game speed on score increase
         highScore = Math.max(highScore, score)
         localStorage.setItem('highScore', highScore)
         scoreBoard.innerHTML = `Score: ${score}`
@@ -75,11 +99,20 @@ const drawGame = () => {
     }
 
     for (let i = 0; i < snakeBody.length; i++) {
-        htmlMarkup += `<div class="snake-head" style="grid-area:${snakeBody[i][1]} / ${snakeBody[i][0]}"></div>`
-        if(i !== 0 && snakeBody[0][1] === snakeBody[i][1] && snakeBody[0][0] === snakeBody[i][0]){
-            gameOver = true
+        let segmentClass = i === 0 ? "snake-head" : "snake"; // Head gets 'snake-head', others get 'snake'
+        htmlMarkup += `<div class="${segmentClass}" style="grid-area:${snakeBody[i][1]} / ${snakeBody[i][0]}"></div>`;
+    
+        // Check for collisions with the body (game over condition)
+        if (i !== 0 && snakeBody[0][1] === snakeBody[i][1] && snakeBody[0][0] === snakeBody[i][0]) {
+            gameOver = true;
         }
     }
+
+    // Draw obstacles
+    obstacles.forEach(([x, y]) => {
+        htmlMarkup += `<div class="obstacle" style="grid-area:${y} / ${x}"></div>`;
+        if (snakeX === x && snakeY === y) gameOver = true; // End game on obstacle collision
+    });
 
     gameBoard.innerHTML = htmlMarkup
 }

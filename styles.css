@@ -1,15 +1,25 @@
+@font-face {
+    font-family: digital-7;
+    src: url(./assets/fonts/digital-7.ttf);
+}
+@font-face {
+    font-family: smallest-pixel-7;
+    src: url(./assets/fonts/smallest_pixel-7.ttf);
+}
+
 body{
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: darkslategray;
+    background-color: black;
 }
 
 .main-container {
     width: 65vmin;
     height: 70vmin;
-    background-color:darkolivegreen;
+    background-color:black;
+    border: 1px solid greenyellow;
     border-radius: 5px;
     display: flex;
     overflow: hidden;
@@ -18,11 +28,13 @@ body{
 
 .game-info {
     color: goldenrod;
+    font-family: digital-7;
     font-size: 1.2rem;
     font-weight: 500;
     padding: 20px 27px;
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid greenyellow;
 }
 
 .game-board{
@@ -30,7 +42,7 @@ body{
     height: 100%;
     display: grid;
     grid-template: repeat(30, 1fr) / repeat(30, 1fr);
-    background-color: rgb(42, 56, 18);
+    background-color: black;
 }
 
 .game-board .food{
@@ -38,7 +50,40 @@ body{
 }
 
 .game-board .snake-head{
-    background-color: lightskyblue;
+    background-color: greenyellow;
+    transition: all 0.1s linear;
+}
+
+.snake {
+    background-color: greenyellow;
+    border: 2px solid green;
+    box-sizing: border-box;
+}
+
+.snake-head.up {
+    border-radius: 50% 50% 0 0;
+}
+
+.snake-head.down {
+    border-radius: 0 0 50% 50%;
+}
+
+.snake-head.left {
+    border-radius: 50% 0 0 50%;
+}
+
+.snake-head.right {
+    border-radius: 0 50% 50% 0;
+}
+
+.snake-head {
+    position: relative;
+    box-sizing: border-box;
+}
+
+.game-board .obstacle {
+    background-color: red;
+    border: 2px solid darkred;
 }
 
 .controls{
